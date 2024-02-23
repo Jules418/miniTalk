@@ -1,41 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 15:48:08 by jules             #+#    #+#             */
-/*   Updated: 2024/02/23 12:44:20 by jbanacze         ###   ########.fr       */
+/*   Created: 2024/02/19 09:03:33 by jbanacze          #+#    #+#             */
+/*   Updated: 2024/02/23 12:28:09 by jbanacze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	listen(int signal)
-{
-	static int	i = 0;
-	static char	c = 0;
+# include <signal.h>
+# include "ft_printf.h"
 
-	c = c << 1;
-	i++;
-	c |= (signal == SIGUSR2);
-	if (i == 8)
-	{
-		write(1, &c, 1);
-		c = 0;
-		i = 0;
-	}
-}
+# define WAIT_TIME 900
 
-int	main(void)
-{
-	ft_printf("Server ID : %d\n", getpid());
-	while (1)
-	{
-		signal(SIGUSR1, listen);
-		signal(SIGUSR2, listen);
-		pause ();
-	}
-	return (0);
-}
+typedef struct sigaction t_sig;
+
+#endif

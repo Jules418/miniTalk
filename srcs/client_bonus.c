@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:48:04 by jules             #+#    #+#             */
-/*   Updated: 2024/02/23 11:25:39 by jbanacze         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:32:06 by jbanacze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include "stdio.h"
+
+int	waiting_for_response = 0;
 
 int	ft_atoi(char *s)
 {
@@ -29,6 +32,14 @@ int	ft_atoi(char *s)
 	return (nb);
 }
 
+void	listen_for_response(int signal)
+{
+	if (signal == SIGUSR2)
+	{
+		waiting_for_response = 0;
+	}
+}
+
 void	ft_send(int pid, unsigned char c)
 {
 	int	i;
@@ -36,12 +47,15 @@ void	ft_send(int pid, unsigned char c)
 	i = 0;
 	while (i < 8)
 	{
-		if (c & (0x80 >> i))
-			kill(pid, SIGUSR2);
-		else
-			kill(pid, SIGUSR1);
-		i++;
-		usleep(WAIT_TIME);
+		if (waiting_for_response == 0)
+		{
+			waiting_for_response = 1;
+			if (c & (0x80 >> i))
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			i++;
+		}
 	}
 }
 
@@ -56,10 +70,14 @@ int	main(int argc, char **argv)
 	if (pid < 0)
 		return (1);
 	i = 0;
+	signal(SIGUSR2, listen_for_response);
 	while (argv[2][i])
 	{
 		ft_send(pid, argv[2][i]);
 		i++;
 	}
 	ft_send(pid, '\n');
+	usleep(WAIT_TIME);
+	if (!waiting_for_response)
+		ft_printf("Message envoye et recu avec succes\n");
 }
