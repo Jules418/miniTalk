@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dynarr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 13:24:48 by jbanacze          #+#    #+#             */
-/*   Updated: 2024/03/06 13:48:39 by jbanacze         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:44:52 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dynarr.h"
 
-t_dynarr new_dynarr(void)
+t_dynarr	new_dynarr(void)
 {
 	t_dynarr	res;
 

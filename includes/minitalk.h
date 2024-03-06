@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 09:03:33 by jbanacze          #+#    #+#             */
-/*   Updated: 2024/03/06 14:16:17 by jbanacze         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:45:24 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 
 # define WAIT_TIME 900
 
-typedef struct sigaction t_sig;
+typedef struct sigaction	t_sig;
 
 #endif

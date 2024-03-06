@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jules <jules@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:48:08 by jules             #+#    #+#             */
-/*   Updated: 2024/03/06 14:17:12 by jbanacze         ###   ########.fr       */
+/*   Updated: 2024/03/07 00:45:06 by jules            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	listen(int signal, siginfo_t *info, void *content)
 
 int	main(void)
 {
-	struct sigaction sig;
+	struct sigaction	sig;
 
 	ft_printf("Server ID : %d\n", getpid());
 	sig.sa_sigaction = listen;
