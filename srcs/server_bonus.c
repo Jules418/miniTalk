@@ -6,27 +6,36 @@
 /*   By: jbanacze <jbanacze@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:48:08 by jules             #+#    #+#             */
-/*   Updated: 2024/02/23 14:39:06 by jbanacze         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:17:12 by jbanacze         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	listen(int signo, siginfo_t *info, void *content)
+void	listen(int signal, siginfo_t *info, void *content)
 {
-	static int	i = 0;
-	static int	c = 0;
+	static int		i = 0;
+	static int		c = 0;
+	static t_dynarr	da = NULL;
 
 	(void) content;
 	c = c << 1;
 	i++;
-	if (signo == SIGUSR2)
+	if (!da)
+		da = new_dynarr();
+	if (signal == SIGUSR2)
 		c |= 1;
 	if (i >= 8)
 	{
-		ft_printf("%c", c);
+		add_dynarr(da, c);
 		c = 0;
 		i = 0;
+	}
+	if (da && da->arr && !da->arr[da->len - 1])
+	{
+		ft_printf("%s\n", da->arr);
+		free_dynarr(da);
+		da = NULL;
 	}
 	kill(info->si_pid, SIGUSR2);
 }
